@@ -3,24 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harshavardhan Bhosale | DevOps Engineer</title>
+    <title>Harshavardhan Bhosale | Cloud & DevOps Engineer</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --primary: #FF9900; /* AWS Orange */
-            --primary-dark: #FF8C00;
-            --secondary: #232F3E; /* AWS Dark Blue */
-            --accent: #00BCD4; /* Cyan for contrast */
-            --text-light: #F2F2F2;
-            --text-dark: #1A1A1A;
-            --gray-light: #E6E6E6;
-            --gray: #999999;
-            --gray-dark: #666666;
-            --card-bg: rgba(255, 255, 255, 0.08);
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            --terminal-bg: #1E1E1E;
+            --bg-dark: #070a13;
+            --bg-card: #111827;
+            --accent-green: #10b981; /* Success/Terminal Green */
+            --accent-blue: #3b82f6;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --glass-bg: rgba(17, 24, 39, 0.7);
+            --border-color: rgba(255, 255, 255, 0.1);
         }
 
         * {
@@ -29,1275 +28,419 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             line-height: 1.6;
-            color: var(--text-light);
-            background-color: var(--secondary);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(255, 153, 0, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(0, 188, 212, 0.1) 0%, transparent 20%);
-            min-height: 100vh;
+            scroll-behavior: smooth;
+            background-image: radial-gradient(circle at top right, rgba(16, 185, 129, 0.05), transparent 400px),
+                              radial-gradient(circle at bottom left, rgba(59, 130, 246, 0.05), transparent 400px);
         }
 
-        h1, h2, h3, h4, code, .terminal {
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        section {
-            padding: 100px 0;
-        }
-
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: rgba(35, 47, 62, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            box-shadow: var(--shadow);
-        }
-
+        /* --- Navigation --- */
         nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1000px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-light);
-            text-decoration: none;
-        }
-
-        .logo span {
-            color: var(--primary);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-
-        .nav-links li {
-            margin-left: 30px;
-        }
-
+        .logo { font-weight: 800; color: var(--text-main); letter-spacing: 1px; font-size: 1.2rem; }
+        .logo span { color: var(--accent-green); }
+        
         .nav-links a {
-            color: var(--text-light);
+            color: var(--text-muted);
             text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            position: relative;
-            padding: 5px 0;
+            margin-left: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s;
         }
+        .nav-links a:hover { color: var(--accent-green); }
 
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: var(--primary);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .mobile-toggle {
-            display: none;
-            font-size: 1.5rem;
-            color: var(--text-light);
-            cursor: pointer;
-        }
-
-        /* Hero Section */
+        /* --- Sections --- */
+        section { padding: 100px 20px; max-width: 1100px; margin: auto; }
+        .section-title { font-size: 2.2rem; margin-bottom: 50px; text-align: left; border-left: 4px solid var(--accent-green); padding-left: 15px;}
+        
+        /* --- Hero / Terminal Section --- */
         .hero {
             min-height: 100vh;
             display: flex;
-            align-items: center;
-            padding-top: 80px;
-        }
-
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 50px;
-        }
-
-        .hero-text {
-            flex: 1;
-        }
-
-        .hero-text h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            line-height: 1.1;
-        }
-
-        .hero-text h2 {
-            font-size: 1.8rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
-        .hero-text p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            color: var(--gray-light);
-            max-width: 600px;
-        }
-
-        .highlight {
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--primary);
-            color: var(--text-dark);
-            padding: 12px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            margin-right: 15px;
-            margin-bottom: 15px;
-        }
-
-        .btn:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background-color: var(--primary);
-            color: var(--text-dark);
-        }
-
-        .hero-image {
-            flex: 1;
-            display: flex;
+            flex-direction: column;
             justify-content: center;
+            align-items: center;
+            text-align: left;
+            padding-top: 120px;
         }
 
-        .terminal-container {
+        .terminal-window {
+            background: #0d1117;
             width: 100%;
-            max-width: 550px;
+            max-width: 800px;
             border-radius: 10px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             overflow: hidden;
-            box-shadow: var(--shadow);
-            background-color: var(--terminal-bg);
+            margin-bottom: 40px;
         }
 
         .terminal-header {
-            background-color: #2D2D2D;
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .terminal-buttons {
+            background: #161b22;
+            padding: 12px 15px;
             display: flex;
             gap: 8px;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .terminal-button {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .red { background-color: #FF5F56; }
-        .yellow { background-color: #FFBD2E; }
-        .green { background-color: #27C93F; }
-
-        .terminal-title {
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
 
         .terminal-body {
             padding: 25px;
+            font-family: 'JetBrains Mono', monospace;
             font-size: 0.95rem;
+            color: #c9d1d9;
+        }
+
+        .cmd-prompt { color: var(--accent-green); font-weight: bold; }
+        .cmd-path { color: var(--accent-blue); font-weight: bold; }
+        .cursor { display: inline-block; width: 10px; height: 18px; background: var(--text-main); animation: blink 1s step-end infinite; vertical-align: middle; margin-left: 5px;}
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .hero h1 { font-size: 3.5rem; line-height: 1.2; margin-bottom: 15px; text-align: center; }
+        .hero h2 { color: var(--text-muted); font-weight: 400; font-size: 1.5rem; text-align: center; margin-bottom: 30px;}
+
+        .btn {
+            background: var(--accent-green);
+            color: #000;
+            padding: 12px 28px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 800;
+            display: inline-block;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        .btn:hover { background: transparent; color: var(--accent-green); border-color: var(--accent-green); transform: translateY(-2px); }
+        .btn-outline { background: transparent; color: var(--text-main); border: 1px solid var(--border-color); }
+        .btn-outline:hover { background: var(--border-color); color: white; }
+
+        /* --- About Section --- */
+        .about-text {
+            font-size: 1.1rem;
+            color: var(--text-muted);
             line-height: 1.8;
-            min-height: 300px;
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
         }
 
-        .terminal-line {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .prompt {
-            color: var(--accent);
-            margin-right: 10px;
-            white-space: nowrap;
-        }
-
-        .command {
-            color: var(--text-light);
-        }
-
-        .output {
-            color: var(--gray);
-            margin-left: 25px;
-        }
-
-        .cursor {
-            display: inline-block;
-            width: 8px;
-            height: 20px;
-            background-color: var(--accent);
-            margin-left: 5px;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        /* Skills Section */
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            display: inline-block;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            width: 100px;
-            height: 4px;
-            background-color: var(--primary);
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
+        /* --- Skills Section --- */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
         }
 
         .skill-card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
+            background: var(--bg-card);
             padding: 30px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s, border-color 0.3s;
         }
 
-        .skill-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
+        .skill-card:hover { transform: translateY(-5px); border-color: var(--accent-green); }
+        .skill-card h3 { color: var(--text-main); margin-bottom: 20px; font-size: 1.2rem; display: flex; align-items: center; gap: 10px;}
+        .skill-card h3 i { color: var(--accent-green); }
+        
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+        .skill-tag {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-muted);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .skill-card h3 {
-            color: var(--primary);
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .skill-card h3 i {
-            margin-right: 10px;
-            font-size: 1.3rem;
-        }
-
-        .skill-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .skill-item {
-            background-color: rgba(255, 153, 0, 0.1);
-            color: var(--text-light);
-            padding: 8px 15px;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            transition: var(--transition);
-        }
-
-        .skill-item:hover {
-            background-color: rgba(255, 153, 0, 0.2);
-            transform: scale(1.05);
-        }
-
-        .skill-item i {
-            margin-right: 8px;
-            color: var(--primary);
-        }
-
-        /* Certifications Section */
-        .certifications-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .cert-card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        /* --- Projects Section --- */
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        
+        .project-card {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
         }
 
-        .cert-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-        }
+        .project-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(16, 185, 129, 0.1); border-color: var(--accent-green); }
+        .project-card h3 { font-size: 1.3rem; margin-bottom: 15px; color: var(--text-main); }
+        .project-card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; }
+        
+        .tech-stack { margin-top: auto; display: flex; flex-wrap: wrap; gap: 8px; }
+        .tech-tag { color: var(--accent-blue); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
 
-        .cert-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .cert-icon {
-            background-color: rgba(255, 153, 0, 0.1);
-            color: var(--primary);
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-right: 15px;
-        }
-
-        .cert-header h3 {
-            font-size: 1.2rem;
-            color: var(--text-light);
-        }
-
-        .cert-card p {
-            color: var(--gray);
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-
-        .cert-badge {
-            display: inline-block;
-            background-color: rgba(0, 188, 212, 0.1);
-            color: var(--accent);
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            align-self: flex-start;
-        }
-
-        /* Experience Section */
-        .experience-timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .experience-timeline::before {
-            content: '';
-            position: absolute;
-            width: 4px;
-            background-color: var(--primary);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            width: 50%;
-            box-sizing: border-box;
-        }
-
-        .timeline-item:nth-child(odd) {
-            left: 0;
-        }
-
-        .timeline-item:nth-child(even) {
-            left: 50%;
-        }
-
-        .timeline-content {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: var(--transition);
-        }
-
-        .timeline-content:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-        }
-
-        .timeline-content h3 {
-            color: var(--primary);
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-        }
-
-        .timeline-content h4 {
-            color: var(--accent);
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-
-        .timeline-date {
-            color: var(--gray);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-
-        .timeline-date i {
-            margin-right: 8px;
-        }
-
-        .timeline-content p {
-            color: var(--gray-light);
-        }
-
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: var(--secondary);
-            border: 4px solid var(--primary);
-            border-radius: 50%;
-            top: 20px;
-            right: -10px;
-        }
-
-        .timeline-item:nth-child(even)::after {
-            left: -10px;
-        }
-
-        /* Projects Section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .project-card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-        }
-
-        .project-header {
-            padding: 25px 25px 15px;
-        }
-
-        .project-header h3 {
-            color: var(--text-light);
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-        }
-
-        .project-header p {
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        .project-tech {
-            padding: 0 25px 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .tech-tag {
-            background-color: rgba(0, 188, 212, 0.1);
-            color: var(--accent);
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.8rem;
-        }
-
-        .project-links {
-            padding: 20px 25px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            gap: 15px;
-        }
-
-        /* Contact Section */
-        .contact-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 50px;
-        }
-
-        .contact-info h3 {
-            color: var(--primary);
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-        }
-
-        .contact-info p {
-            color: var(--gray-light);
-            margin-bottom: 30px;
-        }
-
-        .contact-details {
-            margin-top: 20px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-
-        .contact-icon {
-            background-color: rgba(255, 153, 0, 0.1);
-            color: var(--primary);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            margin-right: 15px;
-            flex-shrink: 0;
-        }
-
-        .contact-text h4 {
-            color: var(--text-light);
-            margin-bottom: 5px;
-        }
-
-        .contact-text p {
-            color: var(--gray);
-            margin: 0;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
-            color: var(--text-light);
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 1.2rem;
-        }
-
-        .social-link:hover {
-            background-color: var(--primary);
-            color: var(--text-dark);
-            transform: translateY(-5px);
-        }
-
-        .contact-form {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            color: var(--text-light);
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            color: var(--text-light);
-            font-family: 'Poppins', sans-serif;
-            transition: var(--transition);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        /* Footer */
+        /* --- Contact Footer --- */
         footer {
-            background-color: rgba(0, 0, 0, 0.3);
-            padding: 60px 0 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .footer-content {
+            background: var(--bg-card);
+            padding: 60px 20px;
             text-align: center;
+            border-top: 1px solid var(--border-color);
         }
-
-        .footer-logo {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text-light);
-            margin-bottom: 20px;
+        .social-links { margin: 30px 0; }
+        .social-links a {
+            color: var(--text-main);
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: color 0.3s;
         }
+        .social-links a:hover { color: var(--accent-green); }
+        .footer-text { color: var(--text-muted); font-size: 0.9rem; }
 
-        .footer-logo span {
-            color: var(--primary);
-        }
-
-        .copyright {
-            color: var(--gray);
-            margin-top: 30px;
-            font-size: 0.9rem;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .hero-text h1 {
-                font-size: 2.8rem;
-            }
-
-            .hero-text h2 {
-                font-size: 1.5rem;
-            }
-
-            .experience-timeline::before {
-                left: 30px;
-            }
-
-            .timeline-item {
-                width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
-            }
-
-            .timeline-item:nth-child(even) {
-                left: 0;
-            }
-
-            .timeline-item::after {
-                left: 20px;
-                right: auto;
-            }
-
-            .timeline-item:nth-child(even)::after {
-                left: 20px;
-            }
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: rgba(35, 47, 62, 0.98);
-                flex-direction: column;
-                padding: 20px 0;
-                box-shadow: var(--shadow);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .nav-links li {
-                margin: 0;
-                text-align: center;
-            }
-
-            .nav-links a {
-                display: block;
-                padding: 15px;
-            }
-
-            .mobile-toggle {
-                display: block;
-            }
-
-            .hero-text h1 {
-                font-size: 2.3rem;
-            }
-
-            .section-title h2 {
-                font-size: 2rem;
-            }
-
-            section {
-                padding: 70px 0;
-            }
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } /* Consider adding a hamburger menu for mobile */
+            nav { justify-content: center; }
+            .terminal-body { font-size: 0.8rem; }
         }
     </style>
 </head>
+
 <body>
-    <!-- Header -->
+
     <header>
-        <div class="container">
-            <nav>
-                <a href="#home" class="logo">Harshavardhan<span>.</span></a>
-                <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                    <li><a href="#certifications">Certifications</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <div class="mobile-toggle">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </nav>
-        </div>
+        <nav>
+            <div class="logo">HB<span>.devops</span></div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Infrastructure</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
     </header>
 
-    <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Harshavardhan Bhosale</h1>
-                    <h2>AWS Certified Practitioner | DevOps Engineer</h2>
-                    <p>I am passionate about <span class="highlight">cloud computing</span> and <span class="highlight">DevOps</span>, leveraging AWS services to design, deploy, and manage scalable, reliable, and secure solutions. Currently preparing for <span class="highlight">AWS Solutions Architect Associate</span> certification.</p>
-                    <div class="hero-buttons">
-                        <a href="#contact" class="btn">Get In Touch</a>
-                        <a href="#projects" class="btn btn-outline">View Projects</a>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <div class="terminal-container">
-                        <div class="terminal-header">
-                            <div class="terminal-buttons">
-                                <div class="terminal-button red"></div>
-                                <div class="terminal-button yellow"></div>
-                                <div class="terminal-button green"></div>
-                            </div>
-                            <div class="terminal-title">terminal — harshavardhan@devops:~</div>
-                        </div>
-                        <div class="terminal-body">
-                            <div class="terminal-line">
-                                <span class="prompt">$</span> <span class="command">whoami</span>
-                            </div>
-                            <div class="output">Harshavardhan Bhosale - DevOps Engineer</div>
-                            
-                            <div class="terminal-line">
-                                <span class="prompt">$</span> <span class="command">cat skills.txt</span>
-                            </div>
-                            <div class="output">AWS | DevOps | CI/CD | Docker | Terraform | Linux</div>
-                            
-                            <div class="terminal-line">
-                                <span class="prompt">$</span> <span class="command">find ./certifications -type f</span>
-                            </div>
-                            <div class="output">AWS Cloud Practitioner · AWS Networking · AWS Alexa Skill Builder</div>
-                            
-                            <div class="terminal-line">
-                                <span class="prompt">$</span> <span class="command">echo "Connecting to cloud..."</span>
-                            </div>
-                            <div class="output">Connecting to cloud...</div>
-                            
-                            <div class="terminal-line">
-                                <span class="prompt">$</span> <span class="command" id="typing-command"></span><span class="cursor"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
             </div>
+            <div class="terminal-body" id="terminal-body">
+    </div>
+                <p><span class="cmd-prompt">harshavardhan@local</span>:<span class="cmd-path">~</span>$ whoami</p>
+                <p>Harshavardhan Bhosale</p><br>
+                <p><span class="cmd-prompt">harshavardhan@local</span>:<span class="cmd-path">~</span>$ get-status --current</p>
+                <p>> AWS Cloud Practitioner [Verified]</p>
+                <p>> AWS Solutions Architect Assoc [Training Completed]</p>
+                <p>> Certified Kubernetes Administrator (CKA) [In Progress]</p><br>
+                <p><span class="cmd-prompt">harshavardhan@local</span>:<span class="cmd-path">~</span>$ ./deploy_infrastructure.sh<span class="cursor"></span></p>
+            </div>
+        </div>
+
+        <h1>Harshavardhan Bhosale</h1>
+        <h2>Cloud & DevOps Engineer</h2>
+        
+        <div style="display: flex; gap: 15px; justify-content: center;">
+            <a class="btn" href="#projects">View Projects</a>
+            <a class="btn btn-outline" href="#contact">Contact Me</a>
         </div>
     </section>
 
-    <!-- Skills Section -->
+    <section id="about">
+        <h2 class="section-title">System.About()</h2>
+        <div class="about-text">
+            <p>I am a passionate Cloud and DevOps enthusiast focused on building scalable, reliable, and automated infrastructure using modern DevOps practices and AWS cloud technologies. I am actively developing hands-on expertise with a wide range of DevOps tools to enable efficient CI/CD pipelines and automated infrastructure management.</p>
+            <br>
+            <p>I am passionate about continuous learning, constantly expanding my Kubernetes expertise, and always open to networking and exploring opportunities in Cloud Engineering and DevOps ecosystems.</p>
+        </div>
+    </section>
+
     <section id="skills">
-        <div class="container">
-            <div class="section-title">
-                <h2>Technical Skills</h2>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <h3><i class="fab fa-aws"></i> AWS Services</h3>
-                    <div class="skill-list">
-                        <div class="skill-item"><i class="fas fa-server"></i> EC2</div>
-                        <div class="skill-item"><i class="fas fa-database"></i> S3</div>
-                        <div class="skill-item"><i class="fas fa-network-wired"></i> VPC</div>
-                        <div class="skill-item"><i class="fas fa-balance-scale"></i> ELB</div>
-                        <div class="skill-item"><i class="fas fa-hdd"></i> EBS</div>
-                        <div class="skill-item"><i class="fas fa-user-lock"></i> IAM</div>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <h3><i class="fas fa-code"></i> DevOps Tools</h3>
-                    <div class="skill-list">
-                        <div class="skill-item"><i class="fab fa-docker"></i> Docker</div>
-                        <div class="skill-item"><i class="fas fa-cube"></i> Kubernetes</div>
-                        <div class="skill-item"><i class="fab fa-jenkins"></i> Jenkins</div>
-                        <div class="skill-item"><i class="fab fa-git-alt"></i> Git</div>
-                        <div class="skill-item"><i class="fas fa-code-branch"></i> CI/CD</div>
-                        <div class="skill-item"><i class="fas fa-terminal"></i> Terraform</div>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <h3><i class="fas fa-shield-alt"></i> Security & Monitoring</h3>
-                    <div class="skill-list">
-                        <div class="skill-item"><i class="fas fa-shield-alt"></i> Security Best Practices</div>
-                        <div class="skill-item"><i class="fas fa-bug"></i> Bug Bounty</div>
-                        <div class="skill-item"><i class="fas fa-search"></i> Ethical Hacking</div>
-                        <div class="skill-item"><i class="fas fa-chart-line"></i> CloudWatch</div>
-                        <div class="skill-item"><i class="fas fa-exclamation-triangle"></i> Vulnerability Assessment</div>
-                    </div>
+        <h2 class="section-title">Tech_Stack</h2>
+        <div class="skills-grid">
+            
+            <div class="skill-card">
+                <h3><i class="fab fa-aws"></i> AWS & Cloud</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">EC2</span>
+                    <span class="skill-tag">S3</span>
+                    <span class="skill-tag">VPC</span>
+                    <span class="skill-tag">IAM</span>
+                    <span class="skill-tag">ELB</span>
+                    <span class="skill-tag">EKS</span>
+                    <span class="skill-tag">ECS</span>
                 </div>
             </div>
+
+            <div class="skill-card">
+                <h3><i class="fa-solid fa-dharmachakra"></i> Containerization & IaC</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Docker</span>
+                    <span class="skill-tag">Kubernetes</span>
+                    <span class="skill-tag">Helm</span>
+                    <span class="skill-tag">Terraform</span>
+                    <span class="skill-tag">Ansible</span>
+                    <span class="skill-tag">Chef</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <h3><i class="fa-solid fa-code-branch"></i> CI/CD & Build Tools</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Jenkins</span>
+                    <span class="skill-tag">Git / GitHub</span>
+                    <span class="skill-tag">Nexus</span>
+                    <span class="skill-tag">Maven</span>
+                    <span class="skill-tag">Gradle</span>
+                    <span class="skill-tag">NPM</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <h3><i class="fa-solid fa-terminal"></i> Scripting & Monitoring</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Bash / Linux</span>
+                    <span class="skill-tag">Golang</span>
+                    <span class="skill-tag">Prometheus</span>
+                    <span class="skill-tag">Grafana</span>
+                    <span class="skill-tag">CloudWatch</span>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <!-- Experience Section -->
-    <section id="experience">
-        <div class="container">
-            <div class="section-title">
-                <h2>Work Experience</h2>
-            </div>
-            <div class="experience-timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>DevOps Engineer</h3>
-                        <h4>Infynow Software Solutions LLP</h4>
-                        <div class="timeline-date">
-                            <i class="far fa-calendar"></i> September 2025 - Present (4 months)
-                        </div>
-                        <p>Designing and implementing CI/CD pipelines, automating infrastructure deployment, and managing cloud resources on AWS. Collaborating with development teams to improve deployment processes and system reliability.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Bug Bounty Hunter</h3>
-                        <h4>HackerOne</h4>
-                        <div class="timeline-date">
-                            <i class="far fa-calendar"></i> March 2025 - September 2025 (7 months)
-                        </div>
-                        <p>Identified and reported security vulnerabilities in web applications and systems. Developed expertise in penetration testing methodologies and security assessment techniques.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Certifications Section -->
-    <section id="certifications">
-        <div class="container">
-            <div class="section-title">
-                <h2>Certifications</h2>
-            </div>
-            <div class="certifications-grid">
-                <div class="cert-card">
-                    <div class="cert-header">
-                        <div class="cert-icon">
-                            <i class="fab fa-aws"></i>
-                        </div>
-                        <h3>AWS Certified Cloud Practitioner</h3>
-                    </div>
-                    <p>Foundational understanding of AWS Cloud, services, and architecture.</p>
-                    <span class="cert-badge">AWS Certified</span>
-                </div>
-                <div class="cert-card">
-                    <div class="cert-header">
-                        <div class="cert-icon">
-                            <i class="fas fa-network-wired"></i>
-                        </div>
-                        <h3>AWS Educate: Networking</h3>
-                    </div>
-                    <p>Getting Started with Networking on AWS - VPC, Subnets, Route Tables, and Security Groups.</p>
-                    <span class="cert-badge">Networking</span>
-                </div>
-                <div class="cert-card">
-                    <div class="cert-header">
-                        <div class="cert-icon">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <h3>AWS Certified Alexa Skill Builder</h3>
-                    </div>
-                    <p>Specialty certification for building, testing, and publishing Alexa skills.</p>
-                    <span class="cert-badge">Specialty</span>
-                </div>
-                <div class="cert-card">
-                    <div class="cert-header">
-                        <div class="cert-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3>Cybersecurity Essentials</h3>
-                    </div>
-                    <p>Protecting yourself in the digital age - security fundamentals and best practices.</p>
-                    <span class="cert-badge">Security</span>
-                </div>
-                <div class="cert-card">
-                    <div class="cert-header">
-                        <div class="cert-icon">
-                            <i class="fas fa-user-secret"></i>
-                        </div>
-                        <h3>Bug Bounty - Ethical Hacking</h3>
-                    </div>
-                    <p>Professional training in ethical hacking methodologies and bug bounty hunting.</p>
-                    <span class="cert-badge">Ethical Hacking</span>
-                </div>
-                <div class="cert-card">
-                    <div class="cert-header">
-                        <div class="cert-icon">
-                            <i class="fas fa-tools"></i>
-                        </div>
-                        <h3>Metasploit from Scratch</h3>
-                    </div>
-                    <p>Beginner to Professional training in penetration testing using Metasploit framework.</p>
-                    <span class="cert-badge">Penetration Testing</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
     <section id="projects">
-        <div class="container">
-            <div class="section-title">
-                <h2>Projects</h2>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>AWS Three-Tier Architecture</h3>
-                        <p>Deployed a highly available web application using AWS services including EC2, RDS, S3, and ELB.</p>
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">EC2</span>
-                        <span class="tech-tag">RDS</span>
-                        <span class="tech-tag">S3</span>
-                        <span class="tech-tag">VPC</span>
-                        <span class="tech-tag">Auto Scaling</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/HarshavardhanBhosale" class="btn">View Code</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>CI/CD Pipeline with Jenkins</h3>
-                        <p>Automated build, test, and deployment pipeline using Jenkins, Docker, and GitHub.</p>
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">Jenkins</span>
-                        <span class="tech-tag">Docker</span>
-                        <span class="tech-tag">GitHub</span>
-                        <span class="tech-tag">Shell Scripting</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/HarshavardhanBhosale" class="btn">View Code</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Infrastructure as Code with Terraform</h3>
-                        <p>Automated AWS infrastructure provisioning using Terraform for consistent deployments.</p>
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-tag">Terraform</span>
-                        <span class="tech-tag">AWS</span>
-                        <span class="tech-tag">IaC</span>
-                        <span class="tech-tag">Modules</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/HarshavardhanBhosale" class="btn">View Code</a>
-                    </div>
+        <h2 class="section-title">Infrastructure_Deployments</h2>
+        <div class="projects-grid">
+            
+            <div class="project-card">
+                <h3>CI/CD Pipeline Architecture</h3>
+                <p>Designed and automated build, test, and deployment pipelines to streamline software delivery.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">#Jenkins</span>
+                    <span class="tech-tag">#Docker</span>
+                    <span class="tech-tag">#GitHub</span>
+                    <span class="tech-tag">#Nexus</span>
                 </div>
             </div>
+
+            <div class="project-card">
+                <h3>Kubernetes Orchestration</h3>
+                <p>Deployed highly available containerized applications on K8s clusters, utilizing package managers and robust observability.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">#Kubernetes</span>
+                    <span class="tech-tag">#Helm</span>
+                    <span class="tech-tag">#Prometheus</span>
+                    <span class="tech-tag">#Grafana</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>AWS Infrastructure as Code</h3>
+                <p>Programmatically provisioned core AWS infrastructure ensuring scalable, fault-tolerant cloud environments.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">#Terraform</span>
+                    <span class="tech-tag">#AWS VPC</span>
+                    <span class="tech-tag">#EC2</span>
+                    <span class="tech-tag">#AutoScaling</span>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Get In Touch</h2>
-            </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h3>Let's Connect</h3>
-                    <p>I'm always open to discussing DevOps opportunities, cloud projects, or collaborating on innovative solutions. Feel free to reach out!</p>
-                    
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Email</h4>
-                                <p>harshbhosale8888@gmail.com</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Location</h4>
-                                <p>Kolhapur, Maharashtra, India</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-graduation-cap"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Education</h4>
-                                <p>Bachelor of Computer Science, New College, Kolhapur</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/harshavardhan-bhosale-a66b642b7" class="social-link" target="_blank">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="https://github.com/HarshavardhanBhosale" class="social-link" target="_blank">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" class="form-control" required></textarea>
-                        </div>
-                        <button type="submit" class="btn">Send Message</button>
-                    </form>
-                </div>
-            </div>
+    <footer id="contact">
+        <h2 style="margin-bottom: 20px;">Initialize Connection</h2>
+        <p class="footer-text">harshbhosale8888@gmail.com | Kolhapur, Maharashtra, India</p>
+        
+        <div class="social-links">
+            <a href="https://github.com/HarshavardhanBhosale" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/harshavardhan-bhosale-a66b642b7" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:harshbhosale8888@gmail.com"><i class="fa-solid fa-envelope"></i></a>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">Harshavardhan<span>.</span></div>
-                <p>AWS Certified Practitioner | DevOps Engineer | Cloud Enthusiast</p>
-                <div class="social-links">
-                    <a href="https://www.linkedin.com/in/harshavardhan-bhosale-a66b642b7" class="social-link" target="_blank">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://github.com/HarshavardhanBhosale" class="social-link" target="_blank">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="mailto:harshbhosale8888@gmail.com" class="social-link">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
-                <p class="copyright">© 2025 Harshavardhan Bhosale. All rights reserved.<br>Hosted on GitHub Pages</p>
-            </div>
-        </div>
+        
+        <p class="footer-text">© 2026 Harshavardhan Bhosale | Built for the Cloud</p>
     </footer>
-
     <script>
-        // Mobile navigation toggle
-        const mobileToggle = document.querySelector('.mobile-toggle');
-        const navLinks = document.querySelector('.nav-links');
-
-        mobileToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            mobileToggle.querySelector('i').classList.toggle('fa-bars');
-            mobileToggle.querySelector('i').classList.toggle('fa-times');
-        });
-
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                mobileToggle.querySelector('i').classList.add('fa-bars');
-                mobileToggle.querySelector('i').classList.remove('fa-times');
-            });
-        });
-
-        // Terminal typing effect
-        const commands = [
-            "terraform apply -auto-approve",
-            "aws ec2 describe-instances",
-            "kubectl get pods --all-namespaces",
-            "docker ps -a",
-            "jenkins build job CI-Pipeline",
-            "echo 'Infrastructure deployed successfully!'"
-        ];
-        
-        let commandIndex = 0;
-        let charIndex = 0;
-        const typingElement = document.getElementById('typing-command');
-        let isDeleting = false;
-        
-        function typeCommand() {
-            const currentCommand = commands[commandIndex];
+        document.addEventListener("DOMContentLoaded", () => {
+            const terminal = document.getElementById("terminal-body");
+            const prompt = `<span class="cmd-prompt">harshavardhan@local</span>:<span class="cmd-path">~</span>$ `;
+            const cursor = `<span class="cursor"></span>`;
             
-            if (!isDeleting && charIndex <= currentCommand.length) {
-                typingElement.textContent = currentCommand.substring(0, charIndex);
-                charIndex++;
-                setTimeout(typeCommand, 50);
-            } else if (isDeleting && charIndex >= 0) {
-                typingElement.textContent = currentCommand.substring(0, charIndex);
-                charIndex--;
-                setTimeout(typeCommand, 30);
-            } else {
-                isDeleting = !isDeleting;
-                if (!isDeleting) {
-                    commandIndex = (commandIndex + 1) % commands.length;
+            // The commands to type and their instant outputs
+            const scriptLines = [
+                { cmd: "whoami", out: "Harshavardhan Bhosale<br><br>" },
+                { cmd: "get-status --current", out: "<span style='color: #9ca3af;'>> AWS Cloud Practitioner [Verified]</span><br><span style='color: #9ca3af;'>> AWS Solutions Architect Assoc [Training Completed]</span><br><span style='color: #9ca3af;'>> Certified Kubernetes Administrator (CKA) [In Progress]</span><br><br>" },
+                { cmd: "./deploy_infrastructure.sh", out: "" }
+            ];
+
+            let htmlContent = "";
+
+            // Helper function to pause execution
+            const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+            async function typeLine(lineData) {
+                // 1. Add the prompt
+                htmlContent += `<p>${prompt}`;
+                terminal.innerHTML = htmlContent + cursor;
+                await sleep(500); // Wait half a second before typing
+
+                // 2. Type the command character by character
+                for (let i = 0; i < lineData.cmd.length; i++) {
+                    htmlContent += lineData.cmd.charAt(i);
+                    terminal.innerHTML = htmlContent + cursor;
+                    await sleep(50); // Speed of typing
                 }
-                setTimeout(typeCommand, isDeleting ? 1000 : 500);
+
+                // 3. Wait a moment after typing, then show output
+                await sleep(400); 
+                htmlContent += `</p>`;
+                
+                if (lineData.out) {
+                    htmlContent += `<p>${lineData.out}</p>`;
+                }
+                
+                terminal.innerHTML = htmlContent + cursor;
             }
-        }
-        
-        // Start typing effect
-        setTimeout(typeCommand, 1000);
 
-        // Form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message, Harshavardhan will get back to you soon!');
-            this.reset();
-        });
+            async function runTerminal() {
+                for (const line of scriptLines) {
+                    await typeLine(line);
+                }
+                // Optional: Make the cursor blink infinitely at the end
+                terminal.innerHTML = htmlContent + cursor;
+            }
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // Add active class to nav links on scroll
-        window.addEventListener('scroll', () => {
-            let current = '';
-            const sections = document.querySelectorAll('section');
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (pageYOffset >= sectionTop - 150) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').substring(1) === current) {
-                    link.classList.add('active');
-                }
-            });
+            // Start the sequence
+            runTerminal();
         });
     </script>
+
 </body>
 </html>
