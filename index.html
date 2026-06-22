@@ -7,19 +7,21 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --bg-dark: #070a13;
-            --bg-card: #111827;
-            --accent-green: #10b981; /* Success/Terminal Green */
+            --bg-dark: #030712;
+            --bg-card: #0b0f19;
+            --bg-card-hover: #111827;
+            --accent-green: #10b981;
+            --accent-green-glow: rgba(16, 185, 129, 0.15);
             --accent-blue: #3b82f6;
-            --text-main: #f3f4f6;
+            --text-main: #f9fafb;
             --text-muted: #9ca3af;
-            --glass-bg: rgba(17, 24, 39, 0.7);
-            --border-color: rgba(255, 255, 255, 0.1);
+            --border-color: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.15);
         }
 
         * {
@@ -29,237 +31,397 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-main);
             line-height: 1.6;
             scroll-behavior: smooth;
-            background-image: radial-gradient(circle at top right, rgba(16, 185, 129, 0.05), transparent 400px),
-                              radial-gradient(circle at bottom left, rgba(59, 130, 246, 0.05), transparent 400px);
+            overflow-x: hidden;
+            /* Modern Grid Pattern */
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.08), transparent 50%);
+            background-size: 40px 40px, 40px 40px, 100% 100%;
         }
 
         /* --- Navigation --- */
-        nav {
+        header {
             position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 1000px;
-            background: var(--glass-bg);
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
             backdrop-filter: blur(12px);
-            padding: 15px 30px;
-            border-radius: 50px;
-            border: 1px solid var(--border-color);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(3, 7, 18, 0.6);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1000;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
 
-        .logo { font-weight: 800; color: var(--text-main); letter-spacing: 1px; font-size: 1.2rem; }
-        .logo span { color: var(--accent-green); }
+        .logo { 
+            font-weight: 800; 
+            color: var(--text-main); 
+            letter-spacing: -0.5px; 
+            font-size: 1.25rem; 
+        }
+        .logo span { color: var(--accent-green); font-family: 'JetBrains Mono', monospace; font-weight: 500;}
         
         .nav-links a {
             color: var(--text-muted);
             text-decoration: none;
-            margin-left: 25px;
-            font-size: 0.9rem;
+            margin-left: 30px;
+            font-size: 0.85rem;
             font-weight: 600;
-            transition: color 0.3s;
+            transition: color 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .nav-links a:hover { color: var(--accent-green); }
+        .nav-links a:hover { color: var(--text-main); }
 
-        /* --- Sections --- */
-        section { padding: 100px 20px; max-width: 1100px; margin: auto; }
-        .section-title { font-size: 2.2rem; margin-bottom: 50px; text-align: left; border-left: 4px solid var(--accent-green); padding-left: 15px;}
+        /* --- Global Structural Rules --- */
+        section { 
+            padding: 140px 24px; 
+            max-width: 1200px; 
+            margin: auto; 
+        }
         
-        /* --- Hero / Terminal Section --- */
+        .section-title { 
+            font-size: 2rem; 
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 50px; 
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-title::before {
+            content: '//';
+            color: var(--accent-green);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+        }
+        
+        /* --- Hero / IDE Window Layout --- */
         .hero {
-            min-height: 100vh;
+            min-height: 95vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: left;
-            padding-top: 120px;
+            padding-top: 140px;
+            text-align: center;
         }
 
-        .terminal-window {
-            background: #0d1117;
-            width: 100%;
-            max-width: 800px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
+        .hero h1 { 
+            font-size: 4rem; 
+            font-weight: 800; 
+            letter-spacing: -2px; 
+            line-height: 1.1;
+            margin-bottom: 16px; 
+            background: linear-gradient(180deg, #fff 0%, #9ca3af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero h2 { 
+            color: var(--text-muted); 
+            font-weight: 500; 
+            font-size: 1.35rem; 
             margin-bottom: 40px;
+            letter-spacing: -0.3px;
+        }
+
+        /* Upgraded Terminal Component */
+        .terminal-window {
+            background: #080c14;
+            width: 100%;
+            max-width: 850px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px -15px rgba(0,0,0,0.8);
+            overflow: hidden;
+            margin-bottom: 50px;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
         }
 
         .terminal-header {
-            background: #161b22;
-            padding: 12px 15px;
+            background: #0e131f;
+            padding: 14px 20px;
             display: flex;
-            gap: 8px;
+            justify-content: space-between;
+            align-items: center;
             border-bottom: 1px solid var(--border-color);
         }
 
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
+        .terminal-dots { display: flex; gap: 8px; }
+        .terminal-title { color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; }
+
+        .terminal-container {
+            display: flex;
+            min-height: 280px;
+        }
+
+        /* Terminal Tree Panel */
+        .terminal-sidebar {
+            width: 200px;
+            background: #060912;
+            border-right: 1px solid var(--border-color);
+            padding: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+        .sidebar-title { color: var(--text-muted); font-size: 0.7rem; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; }
+        .file-item { margin-bottom: 6px; display: flex; align-items: center; gap: 8px; color: var(--text-muted)}
+        .file-item i { width: 14px; }
+        .file-active { color: var(--accent-green); }
 
         .terminal-body {
             padding: 25px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.95rem;
-            color: #c9d1d9;
+            font-size: 0.9rem;
+            color: #d1d5db;
+            flex-grow: 1;
+            background: #080c14;
         }
 
-        .cmd-prompt { color: var(--accent-green); font-weight: bold; }
-        .cmd-path { color: var(--accent-blue); font-weight: bold; }
-        .cursor { display: inline-block; width: 10px; height: 18px; background: var(--text-main); animation: blink 1s step-end infinite; vertical-align: middle; margin-left: 5px;}
+        .cmd-prompt { color: var(--accent-green); }
+        .cmd-path { color: var(--accent-blue); }
+        .cursor { display: inline-block; width: 8px; height: 16px; background: var(--accent-green); animation: blink 1s step-end infinite; vertical-align: middle; margin-left: 4px;}
 
         @keyframes blink { 50% { opacity: 0; } }
 
-        .hero h1 { font-size: 3.5rem; line-height: 1.2; margin-bottom: 15px; text-align: center; }
-        .hero h2 { color: var(--text-muted); font-weight: 400; font-size: 1.5rem; text-align: center; margin-bottom: 30px;}
-
+        /* Buttons */
+        .cta-group { display: flex; gap: 16px; justify-content: center; }
         .btn {
-            background: var(--accent-green);
-            color: #000;
-            padding: 12px 28px;
-            border-radius: 6px;
+            background: var(--text-main);
+            color: var(--bg-dark);
+            padding: 14px 32px;
+            border-radius: 8px;
             text-decoration: none;
-            font-weight: 800;
-            display: inline-block;
-            transition: all 0.3s;
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
             border: 1px solid transparent;
-            cursor: pointer;
         }
-        .btn:hover { background: transparent; color: var(--accent-green); border-color: var(--accent-green); transform: translateY(-2px); }
+        .btn:hover { background: transparent; color: var(--text-main); border-color: var(--border-hover); transform: translateY(-1px); }
         .btn-outline { background: transparent; color: var(--text-main); border: 1px solid var(--border-color); }
-        .btn-outline:hover { background: var(--border-color); color: white; }
+        .btn-outline:hover { background: rgba(255,255,255,0.03); border-color: var(--border-hover); }
 
-        /* --- About Section --- */
+        /* --- About Layout --- */
         .about-text {
             font-size: 1.1rem;
             color: var(--text-muted);
             line-height: 1.8;
             background: var(--bg-card);
-            padding: 30px;
-            border-radius: 12px;
+            padding: 40px;
+            border-radius: 16px;
             border: 1px solid var(--border-color);
         }
 
-        /* --- Skills Section --- */
+        /* --- Skills Framework --- */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
         }
 
         .skill-card {
             background: var(--bg-card);
-            padding: 30px;
-            border-radius: 12px;
+            padding: 32px;
+            border-radius: 16px;
             border: 1px solid var(--border-color);
-            transition: transform 0.3s, border-color 0.3s;
+            transition: all 0.2s ease;
         }
 
-        .skill-card:hover { transform: translateY(-5px); border-color: var(--accent-green); }
-        .skill-card h3 { color: var(--text-main); margin-bottom: 20px; font-size: 1.2rem; display: flex; align-items: center; gap: 10px;}
-        .skill-card h3 i { color: var(--accent-green); }
+        .skill-card:hover { border-color: var(--border-hover); background: var(--bg-card-hover); }
+        .skill-card h3 { color: var(--text-main); margin-bottom: 24px; font-size: 1.1rem; display: flex; align-items: center; gap: 12px; font-weight: 700;}
+        .skill-card h3 i { color: var(--accent-green); font-size: 1.25rem; }
         
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
         .skill-tag {
-            background: rgba(255,255,255,0.05);
-            color: var(--text-muted);
+            background: rgba(255,255,255,0.03);
+            color: #d1d5db;
             padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 0.85rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
             font-family: 'JetBrains Mono', monospace;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
         }
 
-        /* --- Projects Section --- */
-        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        /* --- Production Ready Projects Grid --- */
+        .projects-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); 
+            gap: 32px; 
+        }
         
         .project-card {
             background: var(--bg-card);
-            border-radius: 12px;
+            border-radius: 16px;
             border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            position: relative;
         }
 
-        .project-image-container {
+        /* Creative Devops Visual Canvas Top */
+        .project-canvas {
             width: 100%;
-            height: 160px;
-            background: #1f2937;
+            height: 180px;
+            background: #090d16;
             display: flex;
             align-items: center;
             justify-content: center;
             border-bottom: 1px solid var(--border-color);
             position: relative;
-            color: var(--accent-blue);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.15);
+            overflow: hidden;
         }
 
-        .project-image-container i {
-            font-size: 3.5rem;
-            opacity: 0.8;
+        .project-canvas::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 16px 16px;
+        }
+
+        .canvas-graphic {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            text-align: center;
+        }
+
+        .canvas-graphic i {
+            font-size: 3rem;
+            transition: transform 0.3s ease;
         }
 
         .project-content {
-            padding: 25px;
+            padding: 32px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
 
-        .project-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(16, 185, 129, 0.1); border-color: var(--accent-green); }
-        .project-card h3 { font-size: 1.25rem; margin-bottom: 12px; color: var(--text-main); }
-        .project-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; flex-grow: 1; }
+        .project-card:hover { 
+            border-color: var(--border-hover); 
+            background: var(--bg-card-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -20px rgba(0,0,0,0.7);
+        }
         
-        .tech-stack { margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
-        .tech-tag { color: var(--accent-blue); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; background: rgba(59, 130, 246, 0.1); padding: 2px 8px; border-radius: 4px; }
+        .project-card:hover .canvas-graphic i {
+            transform: scale(1.1);
+        }
+
+        .project-card h3 { 
+            font-size: 1.3rem; 
+            font-weight: 700;
+            margin-bottom: 12px; 
+            color: var(--text-main); 
+            letter-spacing: -0.3px;
+        }
+        .project-card p { 
+            color: var(--text-muted); 
+            font-size: 0.95rem; 
+            margin-bottom: 24px; 
+            flex-grow: 1; 
+            line-height: 1.6;
+        }
+        
+        .tech-stack { margin-bottom: 24px; display: flex; flex-wrap: wrap; gap: 6px; }
+        .tech-tag { 
+            color: var(--text-main); 
+            font-size: 0.7rem; 
+            font-weight: 600; 
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(255, 255, 255, 0.04); 
+            padding: 4px 10px; 
+            border-radius: 4px; 
+            border: 1px solid var(--border-color);
+        }
 
         .project-btn {
             width: 100%;
             text-align: center;
-            padding: 10px;
-            font-size: 0.9rem;
+            padding: 12px;
+            font-size: 0.85rem;
             font-weight: 700;
-            border-radius: 6px;
+            border-radius: 8px;
             text-decoration: none;
-            display: block;
-            margin-top: auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            transition: all 0.2s ease;
+        }
+        .project-btn:hover {
+            background: var(--text-main);
+            color: var(--bg-dark);
+            border-color: transparent;
         }
 
-        /* --- Contact Footer --- */
+        /* --- Footer Context --- */
         footer {
-            background: var(--bg-card);
-            padding: 60px 20px;
+            background: #040811;
+            padding: 80px 24px;
             text-align: center;
             border-top: 1px solid var(--border-color);
         }
-        .social-links { margin: 30px 0; }
-        .social-links a {
-            color: var(--text-main);
-            font-size: 1.5rem;
-            margin: 0 15px;
-            transition: color 0.3s;
+        
+        footer h2 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
         }
-        .social-links a:hover { color: var(--accent-green); }
+
+        .social-links { margin: 32px 0; }
+        .social-links a {
+            color: var(--text-muted);
+            font-size: 1.35rem;
+            margin: 0 16px;
+            transition: color 0.2s;
+        }
+        .social-links a:hover { color: var(--text-main); }
         .footer-text { color: var(--text-muted); font-size: 0.9rem; }
 
-        /* Responsive */
+        /* Responsive Breakpoints */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
+            .hero h1 { font-size: 2.75rem; }
             .nav-links { display: none; }
             nav { justify-content: center; }
-            .terminal-body { font-size: 0.8rem; }
+            .terminal-sidebar { display: none; }
+            .terminal-body { font-size: 0.8rem; padding: 16px; }
+            section { padding: 80px 20px; }
         }
     </style>
 </head>
@@ -268,11 +430,11 @@
 
     <header>
         <nav>
-            <div class="logo">HB<span>.devops</span></div>
+            <div class="logo">HB<span>.infra</span></div>
             <div class="nav-links">
                 <a href="#about">About</a>
                 <a href="#skills">Skills</a>
-                <a href="#projects">Infrastructure</a>
+                <a href="#projects">Deployments</a>
                 <a href="#contact">Contact</a>
             </div>
         </nav>
@@ -281,80 +443,92 @@
     <section id="home" class="hero">
         <div class="terminal-window">
             <div class="terminal-header">
-                <div class="dot red"></div>
-                <div class="dot yellow"></div>
-                <div class="dot green"></div>
-            </div>
-            <div class="terminal-body" id="terminal-body">
+                <div class="terminal-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
                 </div>
+                <div class="terminal-title">bash - harshavardhan@infrastructure</div>
+                <div></div>
+            </div>
+            <div class="terminal-container">
+                <div class="terminal-sidebar">
+                    <div class="sidebar-title">Workspace</div>
+                    <div class="file-item"><i class="fa-regular fa-folder-open"></i> clusters/</div>
+                    <div class="file-item file-active"><i class="fa-solid fa-arrows-spin"></i> argocd.yaml</div>
+                    <div class="file-item"><i class="fa-brands fa-aws"></i> aws-cicd.tf</div>
+                    <div class="file-item"><i class="fa-solid fa-dharmachakra"></i> voting-app.io</div>
+                </div>
+                <div class="terminal-body" id="terminal-body">
+                    <!-- Dynamic code logs inject here -->
+                </div>
+            </div>
         </div>
 
         <h1>Harshavardhan Bhosale</h1>
         <h2>Cloud & DevOps Engineer</h2>
         
-        <div style="display: flex; gap: 15px; justify-content: center;">
-            <a class="btn" href="#projects">View Projects</a>
-            <a class="btn btn-outline" href="#contact">Contact Me</a>
+        <div class="cta-group">
+            <a class="btn" href="#projects">Explore Clusters <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="btn btn-outline" href="#contact">Initialize Connection</a>
         </div>
     </section>
 
     <section id="about">
-        <h2 class="section-title">System.About()</h2>
+        <h2 class="section-title">System.Profile()</h2>
         <div class="about-text">
-            <p>I am a passionate Cloud and DevOps enthusiast focused on building scalable, reliable, and automated infrastructure using modern DevOps practices and AWS cloud technologies. I am actively developing hands-on expertise with a wide range of DevOps tools to enable efficient CI/CD pipelines and automated infrastructure management.</p>
+            <p>I am a Cloud and DevOps engineer focused on building scalable, declarative runtime execution systems and fully automated delivery patterns. I specialize in designing fault-tolerant setups using AWS architectures and cloud-native container orchestrations.</p>
             <br>
-            <p>I am passionate about continuous learning, constantly expanding my Kubernetes expertise, and always open to networking and exploring opportunities in Cloud Engineering and DevOps ecosystems.</p>
+            <p>Dedicated to shifting security and operational visibility left, I continuously construct declarative architectures using clean configuration models and standard instrumentation blocks.</p>
         </div>
     </section>
 
     <section id="skills">
-        <h2 class="section-title">Tech_Stack</h2>
+        <h2 class="section-title">Core_Capabilities</h2>
         <div class="skills-grid">
             
             <div class="skill-card">
-                <h3><i class="fab fa-aws"></i> AWS & Cloud</h3>
+                <h3><i class="fab fa-aws"></i> Cloud Platforms</h3>
                 <div class="skill-tags">
                     <span class="skill-tag">EC2</span>
-                    <span class="skill-tag">S3</span>
-                    <span class="skill-tag">VPC</span>
-                    <span class="skill-tag">IAM</span>
-                    <span class="skill-tag">ELB</span>
-                    <span class="skill-tag">EKS</span>
-                    <span class="skill-tag">ECS</span>
+                    <span class="skill-tag">S3 Space</span>
+                    <span class="skill-tag">VPC Core</span>
+                    <span class="skill-tag">EKS Cluster</span>
+                    <span class="skill-tag">ECS Frame</span>
+                    <span class="skill-tag">IAM Security</span>
                 </div>
             </div>
 
             <div class="skill-card">
                 <h3><i class="fa-solid fa-dharmachakra"></i> Containerization & IaC</h3>
                 <div class="skill-tags">
-                    <span class="skill-tag">Docker</span>
+                    <span class="skill-tag">Docker Engine</span>
                     <span class="skill-tag">Kubernetes</span>
-                    <span class="skill-tag">Helm</span>
-                    <span class="skill-tag">Terraform</span>
-                    <span class="skill-tag">Ansible</span>
+                    <span class="skill-tag">Helm Charts</span>
+                    <span class="skill-tag">Terraform Core</span>
+                    <span class="skill-tag">Ansible Node</span>
                 </div>
             </div>
 
             <div class="skill-card">
-                <h3><i class="fa-solid fa-code-branch"></i> CI/CD & Build Tools</h3>
+                <h3><i class="fa-solid fa-code-branch"></i> Automated Delivery</h3>
                 <div class="skill-tags">
-                    <span class="skill-tag">Jenkins</span>
-                    <span class="skill-tag">Git / GitHub</span>
-                    <span class="skill-tag">ArgoCD</span>
-                    <span class="skill-tag">Nexus</span>
-                    <span class="skill-tag">Maven</span>
+                    <span class="skill-tag">Jenkins Core</span>
+                    <span class="skill-tag">Git Versioning</span>
+                    <span class="skill-tag">ArgoCD Engine</span>
+                    <span class="skill-tag">Nexus Manager</span>
+                    <span class="skill-tag">Maven Engine</span>
                 </div>
             </div>
 
             <div class="skill-card">
-                <h3><i class="fa-solid fa-terminal"></i> Scripting & Monitoring</h3>
+                <h3><i class="fa-solid fa-terminal"></i> Logic & Observability</h3>
                 <div class="skill-tags">
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">Bash / Linux</span>
-                    <span class="skill-tag">Golang</span>
-                    <span class="skill-tag">Prometheus</span>
-                    <span class="skill-tag">Grafana</span>
-                    <span class="skill-tag">CloudWatch</span>
+                    <span class="skill-tag">Python Core</span>
+                    <span class="skill-tag">Bash Matrix</span>
+                    <span class="skill-tag">Golang Systems</span>
+                    <span class="skill-tag">Prometheus Engine</span>
+                    <span class="skill-tag">Grafana Board</span>
                 </div>
             </div>
 
@@ -362,12 +536,16 @@
     </section>
 
     <section id="projects">
-        <h2 class="section-title">Infrastructure_Deployments</h2>
+        <h2 class="section-title">Production_Manifests</h2>
         <div class="projects-grid">
             
+            <!-- Card 1 -->
             <div class="project-card">
-                <div class="project-image-container" style="color: #ff7e33;">
-                    <i class="fa-solid fa-arrows-spin"></i>
+                <div class="project-canvas" style="background: radial-gradient(circle at center, rgba(255, 126, 51, 0.08), transparent 70%);">
+                    <div class="canvas-graphic" style="color: #ff7e33;">
+                        <i class="fa-solid fa-arrows-spin"></i>
+                        <span>GITOPS // ACTIVE</span>
+                    </div>
                 </div>
                 <div class="project-content">
                     <h3>ArgoCD GitOps Pipeline</h3>
@@ -375,15 +553,19 @@
                     <div class="tech-stack">
                         <span class="tech-tag">ArgoCD</span>
                         <span class="tech-tag">GitOps</span>
-                        <span class="tech-tag">Kubernetes</span>
+                        <span class="tech-tag">K8s</span>
                     </div>
-                    <a href="https://github.com/HarshavardhanBhosale/argocd-gitops-pipeline.git" target="_blank" class="btn project-btn">View Code <i class="fab fa-github"></i></a>
+                    <a href="https://github.com/HarshavardhanBhosale/argocd-gitops-pipeline.git" target="_blank" class="project-btn">Inspect Code <i class="fab fa-github"></i></a>
                 </div>
             </div>
 
+            <!-- Card 2 -->
             <div class="project-card">
-                <div class="project-image-container" style="color: #326ce5;">
-                    <i class="fa-solid fa-dharmachakra"></i>
+                <div class="project-canvas" style="background: radial-gradient(circle at center, rgba(50, 108, 229, 0.08), transparent 70%);">
+                    <div class="canvas-graphic" style="color: #326ce5;">
+                        <i class="fa-solid fa-dharmachakra"></i>
+                        <span>POD_ORCHESTRATION // LIVE</span>
+                    </div>
                 </div>
                 <div class="project-content">
                     <h3>Microservices Voting Cluster</h3>
@@ -393,13 +575,17 @@
                         <span class="tech-tag">Microservices</span>
                         <span class="tech-tag">Docker</span>
                     </div>
-                    <a href="https://github.com/HarshavardhanBhosale/k8s-microservices-voting-demo.git" target="_blank" class="btn project-btn">View Code <i class="fab fa-github"></i></a>
+                    <a href="https://github.com/HarshavardhanBhosale/k8s-microservices-voting-demo.git" target="_blank" class="project-btn">Inspect Code <i class="fab fa-github"></i></a>
                 </div>
             </div>
 
+            <!-- Card 3 -->
             <div class="project-card">
-                <div class="project-image-container" style="color: #10b981;">
-                    <i class="fa-solid fa-layer-group"></i>
+                <div class="project-canvas" style="background: radial-gradient(circle at center, rgba(16, 185, 129, 0.08), transparent 70%);">
+                    <div class="canvas-graphic" style="color: #10b981;">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <span>PROGRESSIVE_DELIVERY // UP</span>
+                    </div>
                 </div>
                 <div class="project-content">
                     <h3>Argo Rollouts & Kustomize</h3>
@@ -409,13 +595,17 @@
                         <span class="tech-tag">Kustomize</span>
                         <span class="tech-tag">GitOps</span>
                     </div>
-                    <a href="https://github.com/HarshavardhanBhosale/argo-rollouts-kustomize-gitops.git" target="_blank" class="btn project-btn">View Code <i class="fab fa-github"></i></a>
+                    <a href="https://github.com/HarshavardhanBhosale/argo-rollouts-kustomize-gitops.git" target="_blank" class="project-btn">Inspect Code <i class="fab fa-github"></i></a>
                 </div>
             </div>
 
+            <!-- Card 4 -->
             <div class="project-card">
-                <div class="project-image-container" style="color: #d24939;">
-                    <i class="fa-solid fa-boxes-packing"></i>
+                <div class="project-canvas" style="background: radial-gradient(circle at center, rgba(210, 73, 57, 0.08), transparent 70%);">
+                    <div class="canvas-graphic" style="color: #d24939;">
+                        <i class="fa-solid fa-boxes-packing"></i>
+                        <span>AUTOMATION_ENGINE // STABLE</span>
+                    </div>
                 </div>
                 <div class="project-content">
                     <h3>DeployNova CI/CD Pipeline</h3>
@@ -425,13 +615,17 @@
                         <span class="tech-tag">CI/CD</span>
                         <span class="tech-tag">Automation</span>
                     </div>
-                    <a href="https://github.com/HarshavardhanBhosale/deploynova-cicd-pipeline.git" target="_blank" class="btn project-btn">View Code <i class="fab fa-github"></i></a>
+                    <a href="https://github.com/HarshavardhanBhosale/deploynova-cicd-pipeline.git" target="_blank" class="project-btn">Inspect Code <i class="fab fa-github"></i></a>
                 </div>
             </div>
 
+            <!-- Card 5 -->
             <div class="project-card">
-                <div class="project-image-container" style="color: #a855f7;">
-                    <i class="fa-solid fa-server"></i>
+                <div class="project-canvas" style="background: radial-gradient(circle at center, rgba(168, 85, 247, 0.08), transparent 70%);">
+                    <div class="canvas-graphic" style="color: #a855f7;">
+                        <i class="fa-solid fa-server"></i>
+                        <span>ARCHITECTURE_TIERS // READ</span>
+                    </div>
                 </div>
                 <div class="project-content">
                     <h3>3-Tier Contact Manager</h3>
@@ -441,13 +635,17 @@
                         <span class="tech-tag">Architecture</span>
                         <span class="tech-tag">Databases</span>
                     </div>
-                    <a href="https://github.com/HarshavardhanBhosale/contact-manager-3tier.git" target="_blank" class="btn project-btn">View Code <i class="fab fa-github"></i></a>
+                    <a href="https://github.com/HarshavardhanBhosale/contact-manager-3tier.git" target="_blank" class="project-btn">Inspect Code <i class="fab fa-github"></i></a>
                 </div>
             </div>
 
+            <!-- Card 6 -->
             <div class="project-card">
-                <div class="project-image-container" style="color: #ff9900;">
-                    <i class="fab fa-aws"></i>
+                <div class="project-canvas" style="background: radial-gradient(circle at center, rgba(255, 153, 0, 0.08), transparent 70%);">
+                    <div class="canvas-graphic" style="color: #ff9900;">
+                        <i class="fab fa-aws"></i>
+                        <span>CLOUD_NATIVE // DEPLOYED</span>
+                    </div>
                 </div>
                 <div class="project-content">
                     <h3>AWS Native CI/CD Pipeline</h3>
@@ -457,7 +655,7 @@
                         <span class="tech-tag">CodePipeline</span>
                         <span class="tech-tag">CloudDevOps</span>
                     </div>
-                    <a href="https://github.com/HarshavardhanBhosale/Aws-CICD-project.git" target="_blank" class="btn project-btn">View Code <i class="fab fa-github"></i></a>
+                    <a href="https://github.com/HarshavardhanBhosale/Aws-CICD-project.git" target="_blank" class="project-btn">Inspect Code <i class="fab fa-github"></i></a>
                 </div>
             </div>
 
@@ -465,8 +663,8 @@
     </section>
 
     <footer id="contact">
-        <h2 style="margin-bottom: 20px;">Initialize Connection</h2>
-        <p class="footer-text">harshbhosale8888@gmail.com | Kolhapur, Maharashtra, India</p>
+        <h2>Establish Secure Socket Connection</h2>
+        <p class="footer-text" style="margin-bottom: 12px;">harshbhosale8888@gmail.com | Kolhapur, Maharashtra, India</p>
         
         <div class="social-links">
             <a href="https://github.com/HarshavardhanBhosale" target="_blank"><i class="fab fa-github"></i></a>
@@ -474,19 +672,19 @@
             <a href="mailto:harshbhosale8888@gmail.com"><i class="fa-solid fa-envelope"></i></a>
         </div>
         
-        <p class="footer-text">© 2026 Harshavardhan Bhosale | Built for the Cloud</p>
+        <p class="footer-text" style="opacity: 0.4; font-size: 0.8rem;">© 2026 Harshavardhan Bhosale | Engineered smoothly with atomic styling principles</p>
     </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const terminal = document.getElementById("terminal-body");
-            const prompt = `<span class="cmd-prompt">harshavardhan@local</span>:<span class="cmd-path">~</span>$ `;
+            const prompt = `<span class="cmd-prompt">harshavardhan@infra</span>:<span class="cmd-path">~</span>$ `;
             const cursor = `<span class="cursor"></span>`;
             
             const scriptLines = [
                 { cmd: "whoami", out: "Harshavardhan Bhosale<br><br>" },
-                { cmd: "get-status --current", out: "<span style='color: #9ca3af;'>> AWS Cloud Practitioner [Verified]</span><br><span style='color: #9ca3af;'>> AWS Solutions Architect Assoc [Training Completed]</span><br><span style='color: #9ca3af;'>> Certified Kubernetes Administrator (CKA) [In Progress]</span><br><br>" },
-                { cmd: "./deploy_infrastructure.sh", out: "" }
+                { cmd: "get-status --current", out: "<span style='color: #a1a1aa;'>> AWS Cloud Practitioner [Verified]</span><br><span style='color: #a1a1aa;'>> AWS Solutions Architect Assoc [Training Completed]</span><br><span style='color: #10b981;'>> Certified Kubernetes Administrator (CKA) [In Progress]</span><br><br>" },
+                { cmd: "terraform apply --auto-approve", out: "<span style='color: #10b981;'>Applying infrastructure... 6 resources deployed flawlessly. Cluster ready.</span>" }
             ];
 
             let htmlContent = "";
@@ -495,19 +693,19 @@
             async function typeLine(lineData) {
                 htmlContent += `<p>${prompt}`;
                 terminal.innerHTML = htmlContent + cursor;
-                await sleep(500);
+                await sleep(400);
 
                 for (let i = 0; i < lineData.cmd.length; i++) {
                     htmlContent += lineData.cmd.charAt(i);
                     terminal.innerHTML = htmlContent + cursor;
-                    await sleep(50);
+                    await sleep(40);
                 }
 
-                await sleep(400); 
+                await sleep(300); 
                 htmlContent += `</p>`;
                 
                 if (lineData.out) {
-                    htmlContent += `<p>${lineData.out}</p>`;
+                    htmlContent += `<p style="line-height: 1.5; margin-bottom: 12px;">${lineData.out}</p>`;
                 }
                 
                 terminal.innerHTML = htmlContent + cursor;
